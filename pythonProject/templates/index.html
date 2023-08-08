@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+
+<div id="graph-1" style="width: 45%; height: 500px;display: inline-block"></div>
+<div id="graph-2" style="width: 45%; height: 500px;display: inline-block"></div>
+
+<h3>Sample API CAlling</h3>
+<a href="/getAllItems/" target="_blank">Get All Items</a><br/>
+<a href="/GetItemById/?id=64d076613e4791081715ee57" target="_blank">Get By ID</a><br/>
+<a href="/getRangeItems/?fromDate=2023-08-05&toDate=2023-08-07" target="_blank">Get Items By Range</a>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart','bar']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable({{dataset}});
+
+        var options = {
+          title: 'Hourly Weather Dashboard',
+
+          legend: { position: 'bottom' },
+          xAxis: { format: 'MMM yyyy' }
+
+        };//curveType: 'function',
+
+        var chart = new google.visualization.LineChart(document.getElementById('graph-1'));
+
+        chart.draw(data, options);
+
+
+        var data = google.visualization.arrayToDataTable({{datasetBar}});
+
+        var options = {
+          chart: {
+            title: 'Daily Temperature',
+            subtitle: 'Date, MIN Temp, MAX Temp',
+          },
+          series: {
+            0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
+            1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
+          },
+          axes: {
+            x: {
+              distance: {label: 'parsecs'}, // Bottom x-axis.
+              brightness: {side: 'top', label: 'apparent magnitude'} // Top x-axis.
+            }
+        }
+
+        };//curveType: 'function',
+
+        var chart = new google.charts.Bar(document.getElementById('graph-2'));
+
+        chart.draw(data, options);
+  }
+</script>
+</body>
+</html>
