@@ -12,6 +12,6 @@ while True:
         data = url.json()
         print(data)
         db.temperature.insert_one(data)
-        time.sleep(60)
+        time.sleep(3600)
     else:
         exit()
